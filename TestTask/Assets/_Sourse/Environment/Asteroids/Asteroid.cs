@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Player;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -8,6 +9,8 @@ namespace Environment.Asteroids
     public class Asteroid : Flyer
     {
         [SerializeField] private float arcHeight = 2f;
+
+        public event Action<Asteroid> OnDespawned;
 
         private IMemoryPool _pool;
 
@@ -29,9 +32,15 @@ namespace Environment.Asteroids
             player.Die();
         }
 
+        public void ForceDespawn()
+        {
+            ReturnToPool();
+        }
+
         private void ReturnToPool()
         {
             StopFlightTween();
+            OnDespawned?.Invoke(this);
             _pool.Despawn(this);
         }
 

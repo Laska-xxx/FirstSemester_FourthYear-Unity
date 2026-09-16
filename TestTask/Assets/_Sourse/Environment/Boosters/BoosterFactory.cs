@@ -1,5 +1,7 @@
+using Environment.Asteroids;
 using Player;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -17,6 +19,7 @@ namespace Environment.Boosters
 
         private Booster.Pool _boosterPool;
         private Transform _playerTransform;
+        private readonly List<Booster> _activeBoosters = new List<Booster>();
 
         [Inject]
         private void Init(Booster.Pool pool, PlayerController player)
@@ -33,6 +36,7 @@ namespace Environment.Boosters
         private void OnDisable()
         {
             StopAllCoroutines();
+            DespawnAll();
         }
 
         private IEnumerator SpawnCooldown()
@@ -52,7 +56,24 @@ namespace Environment.Boosters
             Vector3 startPosition = new Vector3(spawnX, Random.Range(minY, maxY), 0f);
             Vector3 endPosition = new Vector3(despawnX, Random.Range(minY, maxY), 0f);
 
-            _boosterPool.Spawn(startPosition, endPosition, flightDuration, _playerTransform);
+            Booster booster = _boosterPool.Spawn(startPosition, endPosition, flightDuration, _playerTransform);
+            _activeBoosters.Add(booster);
+            booster.OnDespawned += HandleDespawned;
+        }
+
+        private void HandleDespawned(Booster booster)
+        {
+            booster.OnDespawned -= HandleDespawned;
+            _activeBoosters.Remove(booster);
+        }
+
+        private void DespawnAll()
+        {
+            for (int i = _activeBoosters.Count - 1; i >= 0; i--)
+            {
+                _activeBoosters[i].ForceDespawn();
+            }
+            _activeBoosters.Clear();
         }
 
         private void OnDrawGizmosSelected()

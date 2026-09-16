@@ -1,6 +1,8 @@
 using DG.Tweening;
+using Environment.Asteroids;
 using Player;
 using Score;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -11,6 +13,8 @@ namespace Environment.Boosters
         [SerializeField] private float magnetRadius;
         [SerializeField] private float magnetSpeed;
         [SerializeField] private int scoreValue = 1;
+
+        public event Action<Booster> OnDespawned;
 
         private ScoreManager _scoreManager;
         private IMemoryPool _pool;
@@ -65,9 +69,15 @@ namespace Environment.Boosters
             ReturnToPool();
         }
 
+        public void ForceDespawn()
+        {
+            ReturnToPool();
+        }
+
         private void ReturnToPool()
         {
             StopFlightTween();
+            OnDespawned?.Invoke(this);
             _isHoming = false;
             _pool.Despawn(this);
         }

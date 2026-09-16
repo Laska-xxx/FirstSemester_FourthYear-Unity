@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using Zenject;
+using System.Collections.Generic;
 
 namespace Environment.Asteroids
 {
@@ -15,6 +16,7 @@ namespace Environment.Asteroids
         [SerializeField] private float maxSpawnDelay;
 
         private Asteroid.Pool _asteroidPool;
+        private readonly List<Asteroid> _activeAsteroids = new List<Asteroid>();
 
         [Inject] private void Init(Asteroid.Pool asteroidPool)
         {
@@ -29,6 +31,7 @@ namespace Environment.Asteroids
         private void OnDisable()
         {
             StopAllCoroutines();
+            DespawnAll();
         }
 
         private IEnumerator SpawnCooldown()
@@ -48,7 +51,25 @@ namespace Environment.Asteroids
         {
             Vector3 startPosition = new Vector3(spawnX, Random.Range(minY, maxY), 0f);
             Vector3 endPosition = new Vector3(despawnX, Random.Range(minY, maxY), 0f);
-            _asteroidPool.Spawn(startPosition, endPosition, flightDuration);
+
+            Asteroid asteroid = _asteroidPool.Spawn(startPosition, endPosition, flightDuration);
+            _activeAsteroids.Add(asteroid);
+            asteroid.OnDespawned += HandleDespawned;
+        }
+
+        private void HandleDespawned(Asteroid asteroid)
+        {
+            asteroid.OnDespawned -= HandleDespawned;
+            _activeAsteroids.Remove(asteroid);
+        }
+
+        private void DespawnAll()
+        {
+            for (int i = _activeAsteroids.Count - 1; i >= 0; i--)
+            {
+                _activeAsteroids[i].ForceDespawn();
+            }
+            _activeAsteroids.Clear();
         }
 
         private void OnDrawGizmosSelected()
