@@ -26,6 +26,11 @@ namespace Environment.Asteroids
             StartCoroutine(SpawnCooldown());
         }
 
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+        }
+
         private IEnumerator SpawnCooldown()
         {
             while (true)

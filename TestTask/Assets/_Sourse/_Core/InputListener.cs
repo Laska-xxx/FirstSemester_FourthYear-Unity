@@ -36,7 +36,7 @@ namespace Core
         {
             switch (actionMap)
             {
-                case ActionMap.Player:
+                case ActionMap.Game:
                     _inputActions.Player.Enable();
                     _inputActions.UI.Disable();
                     break;
@@ -65,7 +65,7 @@ namespace Core
 
     public enum ActionMap
     {
-        Player,
+        Game,
         UI
     }
 }

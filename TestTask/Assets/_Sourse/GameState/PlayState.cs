@@ -1,25 +1,36 @@
+using Core;
+
 namespace GameState
 {
     public class PlayState : GameState
     {
         public PlayState(GameContext gameContest, StateMachine stateMachine) : base(gameContest, stateMachine)
         {
-        }
-        public override void Enter()
-        {
-            // Handle entering the play state logic here
-        }
-        public override void Update()
-        {
-        }
-        public override void Exit()
-        {
-            // Handle exiting the play state logic here
+
         }
 
-        private void GameOver()
+        public override void Enter()
         {
-            // Handle game over logic here
+            GameContest.PlayerController.enabled = true;
+            GameContest.PlayerController.ResetPosition();
+            GameContest.PlayerController.OnPlayerDeath += OnDeath;
+
+            GameContest.InputListener.SwitchActionMap(ActionMap.Game);
+
+            GameContest.AsteroidFactory.enabled = true;
+            GameContest.BoosterFactory.enabled = true;
+        }
+
+        public override void Exit()
+        {
+            GameContest.ScoreManager.ResetScore();
+
+            GameContest.PlayerController.OnPlayerDeath -= OnDeath;
+        }
+
+        private void OnDeath()
+        {
+            StateMachine.ChangeState(new MenuState(GameContest, StateMachine));
         }
     }
 }

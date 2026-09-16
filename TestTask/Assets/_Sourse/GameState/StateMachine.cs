@@ -9,16 +9,11 @@ namespace GameState
 
         public void ChangeState(BaseState newState)
         {
-            CurrentState.Exit();
+            CurrentState?.Exit();
             CurrentState = newState;
-            CurrentState.Enter();
+            CurrentState?.Enter();
 
             OnStateChanged?.Invoke(CurrentState);
-        }
-
-        public void Update()
-        {
-            CurrentState.Update();
         }
     }
 }

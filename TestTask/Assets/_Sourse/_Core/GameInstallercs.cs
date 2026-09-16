@@ -1,7 +1,9 @@
 using Core;
 using Environment.Asteroids;
 using Environment.Boosters;
+using GameState;
 using Player;
+using Score;
 using System;
 using UnityEngine;
 using Zenject;
@@ -19,7 +21,6 @@ public class GameInstallercs : MonoInstaller
     [SerializeField] private BoosterFactory boosterFactory;
     [SerializeField] private Booster boosterPrefab;
 
-
     public override void InstallBindings()
     {
         CoreInstaller();
@@ -30,7 +31,10 @@ public class GameInstallercs : MonoInstaller
     private void CoreInstaller()
     {
         Container.BindInterfacesAndSelfTo<InputListener>().AsSingle();
-        Container.BindInterfacesAndSelfTo<Score.ScoreManager>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ScoreManager>().AsSingle();
+        Container.Bind<StateMachine>().AsSingle();
+        Container.Bind<GameContext>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameFlowController>().AsSingle().NonLazy();
     }
 
     private void PlayerInstaller()

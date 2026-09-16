@@ -1,3 +1,5 @@
+using Core;
+
 namespace GameState
 {
     public class MenuState : GameState
@@ -9,22 +11,21 @@ namespace GameState
 
         public override void Enter()
         {
-            // Handle entering the menu state logic here
-        }
-
-        public override void Update()
-        {
-
+            GameContest.PlayerController.enabled = false;
+            GameContest.AsteroidFactory.enabled = false;
+            GameContest.BoosterFactory.enabled = false;
+            GameContest.InputListener.SwitchActionMap(ActionMap.UI);
+            GameContest.InputListener.OnStartPerformed += StartGame;
         }
 
         public override void Exit()
         {
-            // Handle exiting the menu state logic here
+            GameContest.InputListener.OnStartPerformed -= StartGame;
         }
 
         private void StartGame()
         {
-            // Handle start game logic here
+            StateMachine.ChangeState(new PlayState(GameContest, StateMachine));
         }
     }
 }
