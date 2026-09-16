@@ -12,7 +12,6 @@ namespace GameState
         public override void Enter()
         {
             GameContest.PlayerController.enabled = true;
-            GameContest.PlayerController.ResetPosition();
             GameContest.PlayerController.OnPlayerDeath += OnDeath;
 
             GameContest.InputListener.SwitchActionMap(ActionMap.Game);
