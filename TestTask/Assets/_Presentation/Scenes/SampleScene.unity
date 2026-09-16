@@ -149,6 +149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 884767022}
+  - {fileID: 187821875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &70975954
@@ -196,6 +197,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70975954}
   m_CullTransparentMesh: 1
+--- !u!1 &187821874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 187821875}
+  - component: {fileID: 187821876}
+  m_Layer: 0
+  m_Name: BoostersFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &187821875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187821874}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 38992455}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &187821876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 187821874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8f5d86b041605459a6e2e72f117ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Environment.Boosters.BoosterFactory
+  minY: 3
+  maxY: -3
+  spawnX: 10
+  despawnX: -10
+  flightDuration: 1.5
+  minSpawnDelay: 2
+  maxSpawnDelay: 4
 --- !u!1 &211121100
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameInstallercs
   player: {fileID: 1736367727}
   asteroidFactory: {fileID: 884767023}
-  asteroidPrefab: {fileID: 1756033965931221546, guid: b8a99a55abf498a4a9b94e366a5c7f90, type: 3}
+  asteroidPrefab: {fileID: 8936765338054927382, guid: b8a99a55abf498a4a9b94e366a5c7f90, type: 3}
+  boosterFactory: {fileID: 187821876}
+  boosterPrefab: {fileID: 8915543557165773788, guid: e38be6e76ebf4f14ba31a83c084b543c, type: 3}
 --- !u!114 &258200778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,8 +707,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Environment.Asteroids.AsteroidFactory
   minY: -4
   maxY: 2
-  spawnX: 11.27
-  despawnX: -10.86
+  spawnX: 11
+  despawnX: -11
   flightDuration: 1
   minSpawnDelay: 2
   maxSpawnDelay: 4
