@@ -1,14 +1,17 @@
 using Player;
 using UnityEngine;
 
-[RequireComponent(typeof(BoxCollider2D))]
-public class Wall : MonoBehaviour
+namespace Environment
 {
-    private void OnTriggerEnter2D(Collider2D other)
+    [RequireComponent(typeof(BoxCollider2D))]
+    public class Wall : MonoBehaviour
     {
-        if (other.TryGetComponent<PlayerController>(out var player))
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            player.Die();
+            if (other.TryGetComponent<PlayerController>(out var player))
+            {
+                player.Die();
+            }
         }
     }
 }
