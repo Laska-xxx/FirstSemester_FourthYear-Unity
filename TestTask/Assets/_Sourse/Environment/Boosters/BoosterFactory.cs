@@ -53,8 +53,9 @@ namespace Environment.Boosters
         
         private void SpawnBooster()
         {
-            Vector3 startPosition = new Vector3(spawnX, Random.Range(minY, maxY), 0f);
-            Vector3 endPosition = new Vector3(despawnX, Random.Range(minY, maxY), 0f);
+            float randomY = Random.Range(minY, maxY);
+            Vector3 startPosition = new Vector3(spawnX, randomY, 0f);
+            Vector3 endPosition = new Vector3(despawnX, randomY, 0f);
 
             Booster booster = _boosterPool.Spawn(startPosition, endPosition, flightDuration, _playerTransform);
             _activeBoosters.Add(booster);
