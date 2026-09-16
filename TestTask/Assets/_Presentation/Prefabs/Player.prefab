@@ -4943,10 +4943,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a5e4d7be5328b44be8021327460fb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player.PlayerController
-  riseAcceleration: 20
-  fallAcceleration: 15
-  maxRiseSpeed: 6
-  maxFallSpeed: 8
+  riseAcceleration: 50
+  fallAcceleration: 20
+  maxRiseSpeed: 15
+  maxFallSpeed: 10
   trail: {fileID: 3095047601623130710}
 --- !u!58 &6618876292786944595
 CircleCollider2D:

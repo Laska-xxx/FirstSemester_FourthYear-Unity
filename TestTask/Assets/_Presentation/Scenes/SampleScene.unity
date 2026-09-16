@@ -245,9 +245,9 @@ MonoBehaviour:
   maxY: -3
   spawnX: 10
   despawnX: -10
-  flightDuration: 1.5
+  flightDuration: 1
   minSpawnDelay: 2
-  maxSpawnDelay: 4
+  maxSpawnDelay: 6
 --- !u!1 &211121100
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +712,7 @@ MonoBehaviour:
   despawnX: -11
   flightDuration: 1
   minSpawnDelay: 2
-  maxSpawnDelay: 4
+  maxSpawnDelay: 6
 --- !u!1 &885663403
 GameObject:
   m_ObjectHideFlags: 0
