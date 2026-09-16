@@ -83,7 +83,7 @@ ParticleSystem:
   emitterVelocityMode: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -4947,6 +4947,7 @@ MonoBehaviour:
   fallAcceleration: 15
   maxRiseSpeed: 6
   maxFallSpeed: 8
+  trail: {fileID: 3095047601623130710}
 --- !u!58 &6618876292786944595
 CircleCollider2D:
   m_ObjectHideFlags: 0

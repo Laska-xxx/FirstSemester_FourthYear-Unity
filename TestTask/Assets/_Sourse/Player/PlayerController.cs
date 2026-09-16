@@ -3,6 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
+using static UnityEngine.ParticleSystem;
 
 namespace Player
 {
@@ -13,6 +14,7 @@ namespace Player
         [SerializeField] private float fallAcceleration = 15f;
         [SerializeField] private float maxRiseSpeed = 6f;
         [SerializeField] private float maxFallSpeed = 8f;
+        [SerializeField] private ParticleSystem trail;
 
         public event Action OnPlayerDeath;
 
@@ -36,12 +38,18 @@ namespace Player
         {
             _input.OnJumpPressed += StartRise;
             _input.OnJumpReleased += StopRise;
+
+            if (trail != null)
+                trail.Play();
         }
 
         private void OnDisable()
         {
             _input.OnJumpPressed -= StartRise;
             _input.OnJumpReleased -= StopRise;
+
+            if (trail != null)
+                trail.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         }
 
         private void FixedUpdate()
