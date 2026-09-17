@@ -8,14 +8,14 @@ namespace GameState
 {
     public class GameContext
     {
-        public InputListener InputListener { get; }
+        public IInputListener InputListener { get; }
         public ScoreManager ScoreManager { get; }
         public PlayerController PlayerController { get; }
         public AsteroidFactory AsteroidFactory { get; }
         public BoosterFactory BoosterFactory { get; }
 
         public GameContext(
-            InputListener inputListener, 
+            IInputListener inputListener, 
             ScoreManager scoreManager, 
             PlayerController playerController, 
             AsteroidFactory asteroidFactory, 

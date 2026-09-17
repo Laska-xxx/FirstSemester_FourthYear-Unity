@@ -30,7 +30,7 @@ public class GameLifetimeScope : LifetimeScope
 
     private void CoreRegister(IContainerBuilder builder)
     {
-        builder.Register<InputListener>(Lifetime.Singleton);
+        builder.Register<InputListener>(Lifetime.Singleton).As<IInputListener>();
         builder.Register<ScoreManager>(Lifetime.Singleton);
         builder.Register<StateMachine>(Lifetime.Singleton);
         builder.Register<GameContext>(Lifetime.Singleton);

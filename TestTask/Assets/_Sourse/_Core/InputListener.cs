@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 namespace Core
 {
-    public class InputListener : IDisposable
+    public class InputListener : IInputListener, IDisposable
     {
         public event Action OnStartPerformed;
         public event Action OnJumpPressed;
