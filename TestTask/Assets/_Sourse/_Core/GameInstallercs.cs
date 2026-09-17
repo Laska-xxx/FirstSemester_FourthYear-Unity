@@ -47,7 +47,7 @@ public class GameInstallercs : MonoInstaller
 
     private void FactoryInstaller()
     {
-        Container.BindMemoryPool<Asteroid, Asteroid.Pool>().WithInitialSize(4).FromComponentInNewPrefab(asteroidPrefab);
-        Container.BindMemoryPool<Booster, Booster.Pool>().WithInitialSize(3).FromComponentInNewPrefab(boosterPrefab);
+        Container.BindMemoryPool<Asteroid, Asteroid.AsteroidPool>().WithInitialSize(4).FromComponentInNewPrefab(asteroidPrefab);
+        Container.BindMemoryPool<Booster, Booster.BoosterPool>().WithInitialSize(3).FromComponentInNewPrefab(boosterPrefab);
     }
 }

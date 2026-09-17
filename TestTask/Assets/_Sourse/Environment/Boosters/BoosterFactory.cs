@@ -17,12 +17,12 @@ namespace Environment.Boosters
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
 
-        private Booster.Pool _boosterPool;
+        private Booster.BoosterPool _boosterPool;
         private Transform _playerTransform;
         private readonly List<Booster> _activeBoosters = new List<Booster>();
 
         [Inject]
-        private void Init(Booster.Pool pool, PlayerController player)
+        private void Init(Booster.BoosterPool pool, PlayerController player)
         {
             _boosterPool = pool;
             _playerTransform = player.transform;

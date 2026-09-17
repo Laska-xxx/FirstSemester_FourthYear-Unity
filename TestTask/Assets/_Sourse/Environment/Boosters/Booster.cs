@@ -1,14 +1,13 @@
 using DG.Tweening;
-using Environment.Asteroids;
 using Player;
 using Score;
 using System;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 namespace Environment.Boosters
 {
-    public class Booster : Flyer
+    public partial class Booster : Flyer
     {
         [SerializeField] private float magnetRadius;
         [SerializeField] private float magnetSpeed;
@@ -17,7 +16,7 @@ namespace Environment.Boosters
         public event Action<Booster> OnDespawned;
 
         private ScoreManager _scoreManager;
-        private IMemoryPool _pool;
+        private BoosterPool _pool;
         private Transform _playerTransform;
         private bool _isHoming;
 
@@ -26,9 +25,13 @@ namespace Environment.Boosters
             _scoreManager = scoreManager;
         }
 
-        public void Configure(Vector3 start, Vector3 end, float duration, Transform playerTransform, IMemoryPool pool)
+        public void SetPool(BoosterPool pool)
         {
             _pool = pool;
+        }
+
+        public void Configure(Vector3 start, Vector3 end, float duration, Transform playerTransform)
+        {
             _playerTransform = playerTransform;
             _isHoming = false;
             transform.position = start;
@@ -86,14 +89,6 @@ namespace Environment.Boosters
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, magnetRadius);
-        }
-
-        public class Pool : MonoMemoryPool<Vector3, Vector3, float, Transform, Booster>
-        {
-            protected override void Reinitialize(Vector3 start, Vector3 end, float duration, Transform playerTransform, Booster item)
-            {
-                item.Configure(start, end, duration, playerTransform, this);
-            }
         }
     }
 }

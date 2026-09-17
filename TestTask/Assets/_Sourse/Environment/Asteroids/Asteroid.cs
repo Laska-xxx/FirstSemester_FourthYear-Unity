@@ -2,22 +2,24 @@ using DG.Tweening;
 using Player;
 using System;
 using UnityEngine;
-using Zenject;
 
 namespace Environment.Asteroids
 {
-    public class Asteroid : Flyer
+    public partial class Asteroid : Flyer
     {
         [SerializeField] private float arcHeight = 2f;
 
         public event Action<Asteroid> OnDespawned;
 
-        private IMemoryPool _pool;
+        private AsteroidPool _pool;
 
-        public void Configure(Vector3 start, Vector3 end, float duration, IMemoryPool pool)
+        public void SetPool(AsteroidPool pool)
         {
             _pool = pool;
+        }
 
+        public void Configure(Vector3 start, Vector3 end, float duration)
+        {
             transform.position = start;
 
             Tween tween = transform.DOJump(end, arcHeight, 1, duration)
@@ -42,14 +44,6 @@ namespace Environment.Asteroids
             StopFlightTween();
             OnDespawned?.Invoke(this);
             _pool.Despawn(this);
-        }
-
-        public class Pool : MonoMemoryPool<Vector3, Vector3, float, Asteroid>
-        {
-            protected override void Reinitialize(Vector3 start, Vector3 end, float duration, Asteroid item)
-            {
-                item.Configure(start, end, duration, this);
-            }
         }
     }
 }
