@@ -16,12 +16,12 @@ namespace Player
 
         public event Action OnPlayerDeath;
 
-        private InputListener _input;
+        private IInputListener _input;
         private Rigidbody2D _rb;
         private Vector3 _startPosition;
         private bool _isRising;
 
-        [Inject] private void Init(InputListener input)
+        [Inject] private void Init(IInputListener input)
         {
             _input = input;
         }
