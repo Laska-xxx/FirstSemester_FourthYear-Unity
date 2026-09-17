@@ -15,10 +15,10 @@ namespace Environment.Asteroids
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
 
-        private Asteroid.AsteroidPool _asteroidPool;
+        private AsteroidPool _asteroidPool;
         private readonly List<Asteroid> _activeAsteroids = new List<Asteroid>();
 
-        [Inject] private void Init(Asteroid.AsteroidPool asteroidPool)
+        [Inject] private void Init(AsteroidPool asteroidPool)
         {
             _asteroidPool = asteroidPool;
         }

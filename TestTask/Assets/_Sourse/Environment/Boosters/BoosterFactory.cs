@@ -1,4 +1,3 @@
-using Environment.Asteroids;
 using Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,12 +16,12 @@ namespace Environment.Boosters
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
 
-        private Booster.BoosterPool _boosterPool;
+        private BoosterPool _boosterPool;
         private Transform _playerTransform;
         private readonly List<Booster> _activeBoosters = new List<Booster>();
 
         [Inject]
-        private void Init(Booster.BoosterPool pool, PlayerController player)
+        private void Init(BoosterPool pool, PlayerController player)
         {
             _boosterPool = pool;
             _playerTransform = player.transform;

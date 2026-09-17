@@ -1,7 +1,7 @@
 using Score;
 using TMPro;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class ScoreUI : MonoBehaviour
 {

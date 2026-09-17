@@ -1,9 +1,7 @@
 using Core;
 using System;
-using UnityEditor;
 using UnityEngine;
-using Zenject;
-using static UnityEngine.ParticleSystem;
+using VContainer;
 
 namespace Player
 {

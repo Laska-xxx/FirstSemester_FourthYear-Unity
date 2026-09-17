@@ -1,6 +1,6 @@
 using GameState;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 public class MenuUI : MonoBehaviour
 {
