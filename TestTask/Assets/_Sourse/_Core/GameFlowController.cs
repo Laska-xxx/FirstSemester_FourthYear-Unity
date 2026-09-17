@@ -1,6 +1,7 @@
 using GameState;
 using System;
-using Zenject;
+using VContainer;
+using VContainer.Unity;
 
 public class GameFlowController : IInitializable, IDisposable
 {
