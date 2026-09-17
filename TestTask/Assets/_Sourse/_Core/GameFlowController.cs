@@ -3,7 +3,7 @@ using System;
 using VContainer;
 using VContainer.Unity;
 
-public class GameFlowController : IInitializable, IDisposable
+public class GameFlowController : IStartable, IDisposable
 {
     private readonly StateMachine _stateMachine;
     private readonly GameContext _gameContext;
@@ -14,7 +14,7 @@ public class GameFlowController : IInitializable, IDisposable
         _gameContext = gameContext;
     }
 
-    public void Initialize()
+    public void Start()
     {
         _stateMachine.ChangeState(new MenuState(_gameContext, _stateMachine));
     }

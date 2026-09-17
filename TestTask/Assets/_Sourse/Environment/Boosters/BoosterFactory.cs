@@ -2,7 +2,7 @@ using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
+using VContainer;
 
 namespace Environment.Boosters
 {
@@ -20,8 +20,7 @@ namespace Environment.Boosters
         private Transform _playerTransform;
         private readonly List<Booster> _activeBoosters = new List<Booster>();
 
-        [Inject]
-        private void Init(BoosterPool pool, PlayerController player)
+        [Inject] private void Init(BoosterPool pool, PlayerController player)
         {
             _boosterPool = pool;
             _playerTransform = player.transform;

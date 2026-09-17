@@ -1,7 +1,7 @@
-using UnityEngine;
 using System.Collections;
-using Zenject;
 using System.Collections.Generic;
+using UnityEngine;
+using VContainer;
 
 namespace Environment.Asteroids
 {
