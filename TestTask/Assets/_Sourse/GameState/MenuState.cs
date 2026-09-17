@@ -14,8 +14,8 @@ namespace GameState
             GameContest.PlayerController.ResetPosition();
             GameContest.PlayerController.enabled = false;
 
-            GameContest.AsteroidFactory.enabled = false;
-            GameContest.BoosterFactory.enabled = false;
+            GameContest.AsteroidSpawner.enabled = false;
+            GameContest.BoosterSpawner.enabled = false;
             
             GameContest.InputListener.SwitchActionMap(ActionMap.UI);
             GameContest.InputListener.OnStartPerformed += StartGame;

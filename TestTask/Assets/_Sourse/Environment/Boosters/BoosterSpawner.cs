@@ -1,4 +1,5 @@
 using Player;
+using Pooling;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,7 @@ using VContainer;
 
 namespace Environment.Boosters
 {
-    public class BoosterFactory : MonoBehaviour
+    public class BoosterSpawner : MonoBehaviour
     {
         [SerializeField] private float minY;
         [SerializeField] private float maxY;
@@ -16,11 +17,11 @@ namespace Environment.Boosters
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
 
-        private BoosterPool _boosterPool;
+        private Pool<Booster> _boosterPool;
         private Transform _playerTransform;
         private readonly List<Booster> _activeBoosters = new List<Booster>();
 
-        [Inject] private void Init(BoosterPool pool, PlayerController player)
+        [Inject] private void Init(Pool<Booster> pool, PlayerController player)
         {
             _boosterPool = pool;
             _playerTransform = player.transform;
@@ -55,7 +56,9 @@ namespace Environment.Boosters
             Vector3 startPosition = new Vector3(spawnX, randomY, 0f);
             Vector3 endPosition = new Vector3(despawnX, randomY, 0f);
 
-            Booster booster = _boosterPool.Spawn(startPosition, endPosition, flightDuration, _playerTransform);
+            Booster booster = _boosterPool.Get();
+            booster.Configure(startPosition, endPosition, flightDuration, _playerTransform);
+
             _activeBoosters.Add(booster);
             booster.OnDespawned += HandleDespawned;
         }

@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Player;
+using Pooling;
 using Score;
 using System;
 using UnityEngine;
@@ -7,7 +8,7 @@ using VContainer;
 
 namespace Environment.Boosters
 {
-    public partial class Booster : Flyer
+    public partial class Booster : Flyer, IPoolable<Booster>
     {
         [SerializeField] private float magnetRadius;
         [SerializeField] private float magnetSpeed;
@@ -16,7 +17,7 @@ namespace Environment.Boosters
         public event Action<Booster> OnDespawned;
 
         private ScoreManager _scoreManager;
-        private BoosterPool _pool;
+        private Pool<Booster> _pool;
         private Transform _playerTransform;
         private bool _isHoming;
 
@@ -25,7 +26,7 @@ namespace Environment.Boosters
             _scoreManager = scoreManager;
         }
 
-        public void SetPool(BoosterPool pool)
+        public void SetPool(Pool<Booster> pool)
         {
             _pool = pool;
         }
@@ -82,7 +83,7 @@ namespace Environment.Boosters
             StopFlightTween();
             OnDespawned?.Invoke(this);
             _isHoming = false;
-            _pool.Despawn(this);
+            _pool.Release(this);
         }
 
         private void OnDrawGizmosSelected()

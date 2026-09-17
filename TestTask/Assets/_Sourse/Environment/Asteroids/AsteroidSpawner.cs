@@ -1,3 +1,4 @@
+using Pooling;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using VContainer;
 
 namespace Environment.Asteroids
 {
-    public class AsteroidFactory : MonoBehaviour
+    public class AsteroidSpawner : MonoBehaviour
     {
         [SerializeField] private float minY;
         [SerializeField] private float maxY;
@@ -15,10 +16,10 @@ namespace Environment.Asteroids
         [SerializeField] private float minSpawnDelay;
         [SerializeField] private float maxSpawnDelay;
 
-        private AsteroidPool _asteroidPool;
+        private Pool<Asteroid> _asteroidPool;
         private readonly List<Asteroid> _activeAsteroids = new List<Asteroid>();
 
-        [Inject] private void Init(AsteroidPool asteroidPool)
+        [Inject] private void Init(Pool<Asteroid> asteroidPool)
         {
             _asteroidPool = asteroidPool;
         }
@@ -52,7 +53,9 @@ namespace Environment.Asteroids
             Vector3 startPosition = new Vector3(spawnX, Random.Range(minY, maxY), 0f);
             Vector3 endPosition = new Vector3(despawnX, Random.Range(minY, maxY), 0f);
 
-            Asteroid asteroid = _asteroidPool.Spawn(startPosition, endPosition, flightDuration);
+            Asteroid asteroid = _asteroidPool.Get();
+            asteroid.Configure(startPosition, endPosition, flightDuration);
+
             _activeAsteroids.Add(asteroid);
             asteroid.OnDespawned += HandleDespawned;
         }

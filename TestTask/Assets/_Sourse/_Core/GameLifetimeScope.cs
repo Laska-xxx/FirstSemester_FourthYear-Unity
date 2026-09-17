@@ -3,6 +3,7 @@ using Environment.Asteroids;
 using Environment.Boosters;
 using GameState;
 using Player;
+using Pooling;
 using Score;
 using UnityEngine;
 using VContainer;
@@ -14,11 +15,11 @@ public class GameLifetimeScope : LifetimeScope
     [SerializeField] private PlayerController player;
 
     [Header("Asteroids")]
-    [SerializeField] private AsteroidFactory asteroidFactory;
+    [SerializeField] private AsteroidSpawner asteroidFactory;
     [SerializeField] private Asteroid asteroidPrefab;
 
     [Header("Boosters")]
-    [SerializeField] private BoosterFactory boosterFactory;
+    [SerializeField] private BoosterSpawner boosterFactory;
     [SerializeField] private Booster boosterPrefab;
 
     protected override void Configure(IContainerBuilder builder)
@@ -47,7 +48,10 @@ public class GameLifetimeScope : LifetimeScope
 
     private void PoolsRegister(IContainerBuilder builder)
     {
-        builder.Register<AsteroidPool>(Lifetime.Singleton).WithParameter(asteroidPrefab);
-        builder.Register<BoosterPool>(Lifetime.Singleton).WithParameter(boosterPrefab);
+        builder.Register<Factory<Asteroid>>(Lifetime.Singleton).WithParameter(asteroidPrefab);
+        builder.Register<Pool<Asteroid>>(Lifetime.Singleton);
+
+        builder.Register<Factory<Booster>>(Lifetime.Singleton).WithParameter(boosterPrefab);
+        builder.Register<Pool<Booster>>(Lifetime.Singleton);
     }
 }

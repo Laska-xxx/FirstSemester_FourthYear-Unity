@@ -1,19 +1,20 @@
 using DG.Tweening;
 using Player;
+using Pooling;
 using System;
 using UnityEngine;
 
 namespace Environment.Asteroids
 {
-    public partial class Asteroid : Flyer
+    public partial class Asteroid : Flyer, IPoolable<Asteroid>
     {
         [SerializeField] private float arcHeight = 2f;
 
         public event Action<Asteroid> OnDespawned;
 
-        private AsteroidPool _pool;
+        private Pool<Asteroid> _pool;
 
-        public void SetPool(AsteroidPool pool)
+        public void SetPool(Pool<Asteroid> pool)
         {
             _pool = pool;
         }
@@ -43,7 +44,7 @@ namespace Environment.Asteroids
         {
             StopFlightTween();
             OnDespawned?.Invoke(this);
-            _pool.Despawn(this);
+            _pool.Release(this);
         }
     }
 }

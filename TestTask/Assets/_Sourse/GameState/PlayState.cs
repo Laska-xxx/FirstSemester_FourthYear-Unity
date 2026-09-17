@@ -16,8 +16,8 @@ namespace GameState
 
             GameContest.InputListener.SwitchActionMap(ActionMap.Game);
 
-            GameContest.AsteroidFactory.enabled = true;
-            GameContest.BoosterFactory.enabled = true;
+            GameContest.AsteroidSpawner.enabled = true;
+            GameContest.BoosterSpawner.enabled = true;
         }
 
         public override void Exit()
